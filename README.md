@@ -35,3 +35,21 @@ Leap of Faith is a web based platformer game.
     ```
     $ yarn build
     ```
+
+## How-to guides
+
+### Check and fix code with ESLint
+
+The following command will check JavaScript files in the `src` directory based
+on the config in `.eslintrc.js` and report errors (if any):
+
+```
+$ yarn lint
+```
+
+ESLint can also be used to fix the problematic source code in simple cases (e.g.
+missing semicolon). This can be done by running the following command:
+
+```
+$ yarn fix
+```
