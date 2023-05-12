@@ -1,9 +1,17 @@
-function component() {
-  const element = document.createElement('div');
+const canvas = document.querySelector("canvas");
+const c2d = canvas.getContext("2d");
 
-  element.innerHTML = 'Hello world';
+canvas.width = 1024;
+canvas.height = 576;
 
-  return element;
+const player = new Player();
+
+function animate() {
+  window.requestAnimationFrame(animate);
+  player.Update();
+  c2d.clearRect(0, 0, canvas.width, canvas.height);
+  c2d.fillStyle = player.color;
+  c2d.fillRect(player.position.x, player.position.y, player.width, player.height);
 }
 
-document.body.appendChild(component());
+animate();
