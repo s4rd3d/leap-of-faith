@@ -1,0 +1,26 @@
+{
+  "name": "leap-of-faith",
+  "version": "1.0.0",
+  "description": "A web based platformer game.",
+  "repository": "git@github.com:s4rd3d/leap-of-faith.git",
+  "author": [
+    "Sándor Bence <bence.sandor97@gmail.com>",
+    "Sándor Dávid <sandordavid1124@gmail.com>"
+  ],
+  "private": true,
+  "scripts": {
+    "build": "webpack --config webpack.prod.js",
+    "start": "webpack serve --open --config webpack.dev.js",
+    "lint": "eslint src/",
+    "fix": "eslint --fix src/"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "webpack": "^5.82.1",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0",
+    "webpack-merge": "^5.8.0"
+  }
+}
