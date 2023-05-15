@@ -6,7 +6,7 @@ class Player {
     };
     this.width = 100;
     this.height = 100;
-    this.color = "red";
+    this.color = 'red';
     this.velocity = {
       x: 0,
       y: 0,
@@ -21,13 +21,13 @@ class Player {
 
   Update(canvas) {
     if (
-      !(player.position.y + player.height < canvas.height) &&
-      !player.isJumping
+      !(this.position.y + this.height < canvas.height)
+      && !this.isJumping
     ) {
-      player.velocity.y = 0;
-      player.position.y = canvas.height - player.height;
-      player.isInAir = false;
-    } else player.isJumping = false;
+      this.velocity.y = 0;
+      this.position.y = canvas.height - this.height;
+      this.isInAir = false;
+    } else this.isJumping = false;
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
     if (this.velocity.x > 0) this.velocity.x -= this.friction;
@@ -36,17 +36,18 @@ class Player {
   }
 
   Move(key) {
-    if (key == "ArrowUp" && !player.isInAir) {
-      player.velocity.y -= this.jumpHeight;
-      player.isJumping = true;
-      player.isInAir = true;
+    if (key === 'ArrowUp' && !this.isInAir) {
+      this.velocity.y -= this.jumpHeight;
+      this.isJumping = true;
+      this.isInAir = true;
     }
-    if (key == "ArrowLeft") {
-      player.velocity.x -= this.moveSpeed;
+    if (key === 'ArrowLeft') {
+      this.velocity.x -= this.moveSpeed;
     }
-    if (key == "ArrowRight") {
-      player.velocity.x += this.moveSpeed;
+    if (key === 'ArrowRight') {
+      this.velocity.x += this.moveSpeed;
     }
   }
-
 }
+
+export default Player;
