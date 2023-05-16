@@ -1,16 +1,17 @@
 import Player from './classes/player';
+import { CANVAS_WIDTH, CANVAS_HEIGHT } from './constants';
 
 const canvas = document.querySelector('canvas');
 const c2d = canvas.getContext('2d');
 
-canvas.width = 1024;
-canvas.height = 576;
+canvas.width = CANVAS_WIDTH;
+canvas.height = CANVAS_HEIGHT;
 
 const player = new Player();
 
 function animate() {
   window.requestAnimationFrame(animate);
-  player.Update(canvas);
+  player.update(canvas);
   c2d.fillStyle = 'white';
   c2d.fillRect(0, 0, canvas.width, canvas.height);
   c2d.fillStyle = player.color;
@@ -25,5 +26,5 @@ function animate() {
 animate();
 
 window.addEventListener('keydown', (event) => {
-  player.Move(event.key);
+  player.move(event.key);
 });
