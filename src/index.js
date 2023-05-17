@@ -1,11 +1,21 @@
+import Player from './classes/player';
+import World from './classes/world';
+import Ground from './classes/starting-ground';
+import Render from './classes/render';
+import { CANVAS_WIDTH, CANVAS_HEIGHT } from './constants';
 import './style/style.css';
 
-function component() {
-  const element = document.createElement('div');
+const canvas = document.querySelector('canvas');
 
-  element.innerHTML = 'Hello world';
+canvas.width = CANVAS_WIDTH;
+canvas.height = CANVAS_HEIGHT;
 
-  return element;
-}
+const player = new Player({ x: CANVAS_WIDTH / 2 - 50, y: 100 }, 100, 100);
+const ground = new Ground();
+const world = new World();
 
-document.body.appendChild(component());
+world.addObject(ground);
+world.addObject(player);
+
+const render = new Render(canvas, world);
+render.animate();
