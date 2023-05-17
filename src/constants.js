@@ -5,6 +5,6 @@ export const JUMPSPEED = 30;
 export const MOVESPEED = 10;
 
 // Constants for rendering
-export const CANVAS_WIDTH = 1024;
-export const CANVAS_HEIGHT = 576;
+export const CANVAS_WIDTH = window.innerWidth;
+export const CANVAS_HEIGHT = window.innerHeight;
 export const GROUND_HEIGHT = 30;

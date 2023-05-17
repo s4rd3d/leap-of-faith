@@ -1,3 +1,7 @@
 body {
   background: #123456;
 }
+
+html, body {
+  overflow: hidden;
+}
