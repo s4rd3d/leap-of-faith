@@ -1,4 +1,6 @@
-import { GRAVITY, FRICTION, JUMPHEIGHT, MOVESPEED } from "../constants";
+import {
+  GRAVITY, FRICTION, JUMPHEIGHT, MOVESPEED, CANVAS_HEIGHT,
+} from '../constants';
 
 class Player {
   constructor() {
@@ -8,19 +10,20 @@ class Player {
     };
     this.width = 100;
     this.height = 100;
-    this.color = "red";
+    this.color = 'red';
     this.velocity = {
       x: 0,
       y: 0,
     };
     this.isJumping = false;
     this.isInAir = true;
+    window.addEventListener('keydown', (event) => { this.move(event.key); });
   }
 
-  update(canvas) {
-    if (!(this.position.y + this.height < canvas.height) && !this.isJumping) {
+  step() {
+    if (!(this.position.y + this.height < CANVAS_HEIGHT) && !this.isJumping) {
       this.velocity.y = 0;
-      this.position.y = canvas.height - this.height;
+      this.position.y = CANVAS_HEIGHT - this.height;
       this.isInAir = false;
     } else this.isJumping = false;
     this.position.x += this.velocity.x;
@@ -30,19 +33,24 @@ class Player {
     this.velocity.y += GRAVITY;
   }
 
+  render(context) {
+    context.fillStyle = this.color;
+    context.fillRect(this.position.x, this.position.y, this.width, this.height);
+  }
+
   move(key) {
     switch (key) {
-      case "ArrowUp":
+      case 'ArrowUp':
         if (!this.isInAir) {
           this.velocity.y -= JUMPHEIGHT;
           this.isJumping = true;
           this.isInAir = true;
         }
         break;
-      case "ArrowLeft":
+      case 'ArrowLeft':
         this.velocity.x -= MOVESPEED;
         break;
-      case "ArrowRight":
+      case 'ArrowRight':
         this.velocity.x += MOVESPEED;
         break;
     }
