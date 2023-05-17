@@ -3,6 +3,7 @@ import World from './classes/world';
 import Ground from './classes/starting-ground';
 import Render from './classes/render';
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from './constants';
+import './style/style.css';
 
 const canvas = document.querySelector('canvas');
 
