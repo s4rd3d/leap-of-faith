@@ -11,6 +11,7 @@ class StartingGround {
     this.color = 'brown';
   }
 
+  // eslint-disable-next-line class-methods-use-this
   step() {
     // Ground ain't gon move cuh
   }
