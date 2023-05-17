@@ -9,7 +9,7 @@ const canvas = document.querySelector('canvas');
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
-const player = new Player();
+const player = new Player({ x: CANVAS_WIDTH / 2 - 50, y: 100 }, 100, 100);
 const ground = new Ground();
 const world = new World();
 
