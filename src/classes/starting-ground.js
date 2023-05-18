@@ -8,7 +8,7 @@ class StartingGround {
       x: 0,
       y: CANVAS_HEIGHT - GROUND_HEIGHT,
     };
-    this.color = 'brown';
+    this.color = '#684132';
   }
 
   // eslint-disable-next-line class-methods-use-this

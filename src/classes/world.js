@@ -1,6 +1,15 @@
 class World {
   constructor() {
+    this.player = undefined;
     this.objects = [];
+  }
+
+  addPlayer(player) {
+    this.player = player;
+  }
+
+  getPlayer() {
+    return this.player;
   }
 
   addObject(object) {
