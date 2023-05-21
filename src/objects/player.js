@@ -4,24 +4,16 @@ import {
   JUMPSPEED,
   MOVESPEED,
 } from '../constants';
+import WorldObject from './world-object';
 
-class Player {
-  constructor(position, width, height) {
-    this.position = {
-      x: position.x,
-      y: position.y,
-    };
-    this.width = width;
-    this.height = height;
-    this.color = 'red';
-    this.velocity = {
-      x: 0,
-      y: 0,
-    };
+class Player extends WorldObject {
+  constructor(position, width, height, color) {
+    super(position, width, height, color);
     this.onGround = false;
     window.addEventListener('keydown', (event) => { this.move(event.key); });
   }
 
+  // Calculate the position of the player in the next frame
   step() {
     // Position is the integrate of velocity
     this.position.x += this.velocity.x;
@@ -40,11 +32,7 @@ class Player {
     if (this.velocity.x < 0) this.velocity.x += FRICTION;
   }
 
-  render(context) {
-    context.fillStyle = this.color;
-    context.fillRect(this.position.x, this.position.y, this.width, this.height);
-  }
-
+  // Handle user input
   move(key) {
     switch (key) {
       case 'ArrowUp':
@@ -64,24 +52,6 @@ class Player {
     }
   }
 
-  // Axis alligned collision detection
-  collide(object) {
-    const x1 = this.position.x;
-    const y1 = this.position.y;
-    const h1 = this.height;
-    const w1 = this.width;
-
-    const x2 = object.position.x;
-    const y2 = object.position.y;
-    const h2 = object.height;
-    const w2 = object.width;
-
-    return x1 <= x2 + w2
-      && x1 + w1 >= x2
-      && y1 <= y2 + h2
-      && h1 + y1 >= y2;
-  }
-
   // Handle collision with other object
   handleCollision(object) {
     const y1 = this.position.y;
@@ -93,7 +63,7 @@ class Player {
     // velocity. This means that we need to put the player on top of the object
     // and set the `onGround` property to true.
     if (y1 + h1 >= y2 && this.velocity.y >= 0) {
-      this.position.y = y2 - h1 + 1;
+      this.position.y = y2 - h1;
       this.onGround = true;
     }
   }

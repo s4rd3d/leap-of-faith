@@ -1,3 +1,5 @@
+import collide from './collision';
+
 class Render {
   constructor(canvas, world) {
     this.canvas = canvas;
@@ -26,9 +28,10 @@ class Render {
     // Collision detection and handling for the player
     this.world.getObjects().forEach((element) => {
       // Detect collision
-      if (player.collide(element)) {
+      if (collide(player, element)) {
         // Handle collision
         player.handleCollision(element);
+        element.handleCollision(player);
       }
     });
 
