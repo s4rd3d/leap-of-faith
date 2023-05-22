@@ -3,6 +3,8 @@ import {
   FRICTION,
   JUMPSPEED,
   MOVESPEED,
+  MAXSPEED,
+  STOPSPEED,
 } from '../constants';
 import WorldObject from './world-object';
 
@@ -11,6 +13,7 @@ class Player extends WorldObject {
     super(position, width, height, color);
     this.onGround = false;
     window.addEventListener('keydown', (event) => { this.move(event.key); });
+    window.addEventListener('keyup', (event) => { this.moveStop(event.key); });
   }
 
   // Calculate the position of the player in the next frame
@@ -43,9 +46,25 @@ class Player extends WorldObject {
         break;
       case 'ArrowLeft':
         this.velocity.x -= MOVESPEED;
+        if (this.velocity.x < -MAXSPEED) this.velocity.x = -MAXSPEED;
         break;
       case 'ArrowRight':
         this.velocity.x += MOVESPEED;
+        if (this.velocity.x > MAXSPEED) this.velocity.x = MAXSPEED;
+        break;
+      default:
+        break;
+    }
+  }
+
+  // When player releases key, character will slow down significantly
+  moveStop(key) {
+    switch (key) {
+      case 'ArrowLeft':
+        this.velocity.x = -STOPSPEED;
+        break;
+      case 'ArrowRight':
+        this.velocity.x = STOPSPEED;
         break;
       default:
         break;
