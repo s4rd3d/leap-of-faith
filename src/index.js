@@ -1,23 +1,19 @@
-import Player from './classes/player';
-import World from './classes/world';
-import Ground from './classes/starting-ground';
-import Render from './classes/render';
+import World from './world';
+import Render from './render';
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from './constants';
 
 import './style/style.css';
 import './style/reset.css';
 
+// Set up canvas dimensions
 const canvas = document.querySelector('canvas');
-
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
-const player = new Player({ x: CANVAS_WIDTH / 2 - 50, y: 100 }, 100, 100);
-const ground = new Ground();
+// Generate a new world
 const world = new World();
+world.generate();
 
-world.addObject(ground);
-world.addObject(player);
-
+// Create a new renderer and start the animation
 const render = new Render(canvas, world);
 render.animate();
