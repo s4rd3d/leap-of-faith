@@ -5,6 +5,34 @@ class Render {
     this.canvas = canvas;
     this.world = world;
     this.context = canvas.getContext('2d');
+
+    // User event handling
+    this.controller = {
+      'ArrowUp': {
+        pressed: false,
+        handle: () => this.world.getPlayer().jump(),
+      },
+      'ArrowLeft': {
+        pressed: false,
+        handle: () => this.world.getPlayer().moveLeft(),
+      },
+      'ArrowRight': {
+        pressed: false,
+        handle: () => this.world.getPlayer().moveRight(),
+      },
+    };
+
+    window.addEventListener('keydown', (event) => {
+      if (this.controller[event.key]) {
+        this.controller[event.key].pressed = true;
+      }
+    });
+
+    window.addEventListener('keyup', (event) => {
+      if (this.controller[event.key]) {
+        this.controller[event.key].pressed = false;
+      }
+    });
   }
 
   animate() {
@@ -12,6 +40,12 @@ class Render {
   }
 
   doAnimate() {
+    Object.keys(this.controller).forEach((key) => {
+      if (this.controller[key].pressed) {
+        this.controller[key].handle();
+      }
+    });
+
     // Get the position of the player
     const player = this.world.getPlayer();
     player.step();
