@@ -17,3 +17,7 @@ world.generate();
 // Create a new renderer and start the animation
 const render = new Render(canvas, world);
 render.animate();
+
+document.querySelector('#new-game').addEventListener('click', () => {
+    document.querySelector('#main-menu').classList.add('hidden');
+})
