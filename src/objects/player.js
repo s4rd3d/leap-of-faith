@@ -3,6 +3,7 @@ import {
   FRICTION,
   JUMPSPEED,
   MOVESPEED,
+  MAXSPEED,
 } from '../constants';
 import WorldObject from './world-object';
 
@@ -10,7 +11,6 @@ class Player extends WorldObject {
   constructor(position, width, height, color) {
     super(position, width, height, color);
     this.onGround = false;
-    window.addEventListener('keydown', (event) => { this.move(event.key); });
   }
 
   // Calculate the position of the player in the next frame
@@ -32,24 +32,21 @@ class Player extends WorldObject {
     if (this.velocity.x < 0) this.velocity.x += FRICTION;
   }
 
-  // Handle user input
-  move(key) {
-    switch (key) {
-      case 'ArrowUp':
-        if (this.onGround) {
-          this.onGround = false;
-          this.velocity.y -= JUMPSPEED;
-        }
-        break;
-      case 'ArrowLeft':
-        this.velocity.x -= MOVESPEED;
-        break;
-      case 'ArrowRight':
-        this.velocity.x += MOVESPEED;
-        break;
-      default:
-        break;
+  jump() {
+    if (this.onGround) {
+      this.onGround = false;
+      this.velocity.y -= JUMPSPEED;
     }
+  }
+
+  moveLeft() {
+    this.velocity.x -= MOVESPEED;
+    if (this.velocity.x < -MAXSPEED) this.velocity.x = -MAXSPEED;
+  }
+
+  moveRight() {
+    this.velocity.x += MOVESPEED;
+    if (this.velocity.x > MAXSPEED) this.velocity.x = MAXSPEED;
   }
 
   // Handle collision with other object
