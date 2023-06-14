@@ -12,12 +12,12 @@ canvas.height = CANVAS_HEIGHT;
 
 // Generate a new world
 const world = new World();
-world.generate();
 
 // Create a new renderer and start the animation
 const render = new Render(canvas, world);
 render.animate();
+world.generate();
 
 document.querySelector('#new-game').addEventListener('click', () => {
-    document.querySelector('#main-menu').classList.add('hidden');
-})
+  document.querySelector('#main-menu').classList.add('hidden');
+});

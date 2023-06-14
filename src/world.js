@@ -1,7 +1,7 @@
 import Player from './objects/player';
 import Ground from './objects/ground';
 
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from './constants';
+import { CANVAS_WIDTH } from './constants';
 import WorldObject from './objects/world-object';
 
 class World {
@@ -34,7 +34,7 @@ class World {
   generate() {
     // Create the player
     const player = new Player(
-      { x: CANVAS_WIDTH / 2 - 50, y: CANVAS_HEIGHT },
+      { x: CANVAS_WIDTH / 2 - 50, y: 100 },
       100,
       100,
       '#FF0000',
