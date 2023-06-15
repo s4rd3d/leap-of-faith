@@ -22,6 +22,7 @@ class Render {
       },
     };
 
+    // Action for each menu button
     this.menuButtons = {
       'new-game': {
         handle: () => this.startGame(),
@@ -40,6 +41,7 @@ class Render {
       },
     };
 
+    // Add click event listeners
     document.querySelectorAll('button').forEach((button) => {
       button.addEventListener('click', () => {
         this.menuButtons[button.id].handle();
@@ -47,8 +49,10 @@ class Render {
       });
     });
 
+    // Default focus on the first button
     this.changeFocus(document.querySelector('#new-game'));
 
+    // Add event listener for keyboard navigation
     window.addEventListener('keydown', (event) => {
       this.navigateMenu(event);
     });
@@ -120,6 +124,7 @@ class Render {
     });
   }
 
+  // Keyboard navigation of main menu
   navigateMenu(event) {
     const buttons = document.querySelectorAll('button');
     const buttonsNum = buttons.length;
@@ -150,6 +155,8 @@ class Render {
     }
   }
 
+  // Change which button is in focus depending on keyboard
+  // or mouse selection
   // eslint-disable-next-line class-methods-use-this
   changeFocus(button) {
     const buttons = document.querySelectorAll('button');
