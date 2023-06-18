@@ -45,6 +45,8 @@ class Render {
     document.querySelectorAll('button').forEach((button) => {
       button.addEventListener('click', () => {
         this.menuButtons[button.id].handle();
+      });
+      button.addEventListener('mouseover', () => {
         this.changeFocus(button);
       });
     });

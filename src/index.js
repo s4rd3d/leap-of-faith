@@ -15,5 +15,5 @@ const world = new World();
 
 // Create a new renderer and start the animation
 const render = new Render(canvas, world);
-render.animate();
 world.generate();
+render.animate();
