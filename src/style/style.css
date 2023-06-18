@@ -1,7 +1,46 @@
 body {
   background: #123456;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-html, body {
+*:focus {
+  outline: none;
+}
+
+html,
+body {
   overflow: hidden;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  position: absolute;
+  justify-items: center;
+  align-items: center;
+}
+
+.menu-btn {
+  margin: 5px;
+  background-color: transparent;
+  opacity: 0.5;
+  width: 95%;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 3rem;
+  color: white;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.focused {
+  opacity: 1;
+  border-width: 5px;
+  border-color: white;
 }
