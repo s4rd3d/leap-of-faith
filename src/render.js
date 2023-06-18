@@ -94,6 +94,21 @@ class Render {
       }
     });
 
+    // If the player is higher than the middle of the canvas, push objects down.
+    if (player.position.y < this.canvas.height / 2 && player.velocity.y < 0) {
+      // Push down world objects.
+      this.world.moveObjects();
+
+      // Push down the player.
+      player.position.y -= player.velocity.y;
+
+      // Add new platforms to the top of the canvas.
+      this.world.generatePlatforms();
+
+      // Remove platforms from the world if they are out of the viewport.
+      this.world.filterObjects();
+    }
+
     // Clear all previously drawn elements
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
