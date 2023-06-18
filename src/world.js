@@ -6,14 +6,26 @@ import {
   CANVAS_HEIGHT,
   PLATFORM_DISTANCE_MIN,
   PLATFORM_DISTANCE_MAX,
+  PLATFORM_HEIGHT,
+  PLATFORM_WIDTH_MAX,
+  PLATFORM_WIDTH_MIN,
+  GROUND_HEIGHT,
 } from './constants';
 
 import WorldObject from './objects/world-object';
 
+// Get a random width for platform generating.
+function randomWidth() {
+  return Math.floor(
+    Math.random()
+    * (PLATFORM_WIDTH_MAX - PLATFORM_WIDTH_MIN)
+    + PLATFORM_WIDTH_MIN,
+  );
+}
+
 // Get a random x coordinate for platform generating.
 function randomX() {
-  // TODO: remove this magic number, use random platform length.
-  return Math.random() * (CANVAS_WIDTH - 500);
+  return Math.random() * (CANVAS_WIDTH - PLATFORM_WIDTH_MAX);
 }
 
 // Return a random vertical distance for platform generating.
@@ -55,7 +67,7 @@ class World {
   generate() {
     // Create the player
     const player = new Player(
-      { x: CANVAS_WIDTH / 2 - 50, y: 100 },
+      { x: CANVAS_WIDTH / 2 - 50, y: CANVAS_HEIGHT - GROUND_HEIGHT - 100 },
       100,
       100,
       '#FF0000',
@@ -79,9 +91,12 @@ class World {
 
     // Generate new platforms and add them to the world.
     for (let y = fromY; y > 0; y -= getPlatformDistance()) {
-      // TODO: remove magic numbers, use random width and fixed (or random)
-      // height
-      this.addObject(new WorldObject({ x: randomX(), y }, 500, 50, '#346955'));
+      this.addObject(new WorldObject(
+        { x: randomX(), y },
+        randomWidth(),
+        PLATFORM_HEIGHT,
+        '#346955',
+      ));
     }
   }
 
