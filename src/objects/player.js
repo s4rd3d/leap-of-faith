@@ -4,6 +4,7 @@ import {
   JUMPSPEED,
   MOVESPEED,
   MAXSPEED,
+  CANVAS_WIDTH,
 } from '../constants';
 import WorldObject from './world-object';
 
@@ -18,6 +19,13 @@ class Player extends WorldObject {
     // Position is the integrate of velocity
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
+
+    // Wrap the player on the side of the canvas.
+    if (this.position.x + this.width < 0) {
+      this.position.x = CANVAS_WIDTH;
+    } else if (this.position.x > CANVAS_WIDTH) {
+      this.position.x = -this.width;
+    }
 
     // If player's is on the ground then set the y velocity to 0. Otherwise
     // apply the gravity.
