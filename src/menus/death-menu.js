@@ -7,9 +7,7 @@ class DeathMenu extends Menu {
           className: "menu-btn",
           id: "try-again",
         },
-        handle: () => {
-          console.log("try again clicked");
-        },
+        handle: () => this.controllerCallback("tryAgain"),
       },
       {
         properties: {
@@ -17,9 +15,7 @@ class DeathMenu extends Menu {
           className: "menu-btn",
           id: "back-to-main",
         },
-        handle: () => {
-          console.log("back to main clicked");
-        },
+        handle: () => this.controllerCallback("backToMain"),
       },
     ];
 

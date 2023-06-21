@@ -7,9 +7,7 @@ class PauseMenu extends Menu {
           className: "menu-btn",
           id: "resume",
         },
-        handle: () => {
-          console.log("resume clicked");
-        },
+        handle: () => this.controllerCallback("resume"),
       },
       {
         properties: {
@@ -27,9 +25,7 @@ class PauseMenu extends Menu {
           className: "menu-btn",
           id: "back-to-main",
         },
-        handle: () => {
-          console.log("back to main clicked");
-        },
+        handle: () => this.controllerCallback("backToMain"),
       },
     ];
 

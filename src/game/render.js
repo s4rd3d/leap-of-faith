@@ -1,15 +1,27 @@
-import collide from './utils';
+import collide from "./utils";
 
 class Render {
   constructor(canvas, world, controller) {
     this.canvas = canvas;
     this.world = world;
-    this.context = canvas.getContext('2d');
+    this.context = canvas.getContext("2d");
     this.controller = controller;
+    this.paused = false;
+  }
+
+  pause() {
+    this.paused = true;
+  }
+
+  resume() {
+    this.paused = false;
+    window.requestAnimationFrame(this.doAnimate());
   }
 
   animate() {
-    window.requestAnimationFrame(() => { this.doAnimate(); });
+    window.requestAnimationFrame(() => {
+      this.doAnimate();
+    });
   }
 
   doAnimate() {
@@ -68,7 +80,11 @@ class Render {
       element.render(this.context);
     });
 
-    window.requestAnimationFrame(() => { this.doAnimate(); });
+    if (!this.paused) {
+      window.requestAnimationFrame(() => {
+        this.doAnimate();
+      });
+    }
   }
 }
 
