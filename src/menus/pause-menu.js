@@ -1,5 +1,5 @@
 class PauseMenu extends Menu {
-  constructor() {
+  constructor(controllerCallback) {
     const buttons = [
       {
         properties: {
@@ -34,6 +34,9 @@ class PauseMenu extends Menu {
     ];
 
     super(buttons, "main");
+
+    // Game controller callback function
+    this.controllerCallback = controllerCallback;
   }
 }
 

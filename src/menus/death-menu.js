@@ -1,5 +1,5 @@
 class DeathMenu extends Menu {
-  constructor() {
+  constructor(controllerCallback) {
     const buttons = [
       {
         properties: {
@@ -24,6 +24,9 @@ class DeathMenu extends Menu {
     ];
 
     super(buttons, "death");
+
+    // Game controller callback function
+    this.controllerCallback = controllerCallback;
   }
 }
 

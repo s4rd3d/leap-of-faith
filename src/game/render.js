@@ -1,38 +1,11 @@
-import collide from './collision';
+import collide from './utils';
 
 class Render {
-  constructor(canvas, world) {
+  constructor(canvas, world, controller) {
     this.canvas = canvas;
     this.world = world;
     this.context = canvas.getContext('2d');
-
-    // User event handling
-    this.controller = {
-      'ArrowUp': {
-        pressed: false,
-        handle: () => this.world.getPlayer().jump(),
-      },
-      'ArrowLeft': {
-        pressed: false,
-        handle: () => this.world.getPlayer().moveLeft(),
-      },
-      'ArrowRight': {
-        pressed: false,
-        handle: () => this.world.getPlayer().moveRight(),
-      },
-    };
-
-    window.addEventListener('keydown', (event) => {
-      if (this.controller[event.key]) {
-        this.controller[event.key].pressed = true;
-      }
-    });
-
-    window.addEventListener('keyup', (event) => {
-      if (this.controller[event.key]) {
-        this.controller[event.key].pressed = false;
-      }
-    });
+    this.controller = controller;
   }
 
   animate() {

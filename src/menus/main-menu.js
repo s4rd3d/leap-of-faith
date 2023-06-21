@@ -1,5 +1,5 @@
 class MainMenu extends Menu {
-  constructor() {
+  constructor(controllerCallback) {
     const buttons = [
       {
         properties: {
@@ -7,9 +7,7 @@ class MainMenu extends Menu {
           className: "menu-btn",
           id: "new-game",
         },
-        handle: () => {
-          console.log("new game clicked");
-        },
+        handle: () => this.controllerCallback("startGame"),
       },
       {
         properties: {
@@ -44,6 +42,9 @@ class MainMenu extends Menu {
     ];
 
     super(buttons, "main");
+
+    // Game controller callback function
+    this.controllerCallback = controllerCallback;
   }
 }
 

@@ -1,5 +1,4 @@
-import World from './world';
-import Render from './render';
+import Controller from './controller';
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from './constants';
 
 import './style/style.css';
@@ -10,10 +9,6 @@ const canvas = document.querySelector('canvas');
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 
-// Generate a new world
-const world = new World();
-
-// Create a new renderer and start the animation
-const render = new Render(canvas, world);
-world.generate();
-render.animate();
+// Create controller
+const controller = new Controller(canvas);
+controller.initialize();

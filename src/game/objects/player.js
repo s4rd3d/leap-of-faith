@@ -5,7 +5,7 @@ import {
   MOVESPEED,
   MAXSPEED,
   CANVAS_WIDTH,
-} from '../constants';
+} from '../../constants';
 import WorldObject from './world-object';
 
 class Player extends WorldObject {
