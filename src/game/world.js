@@ -1,5 +1,6 @@
 import Player from './objects/player';
 import Ground from './objects/ground';
+import WorldObject from './objects/world-object';
 
 import {
   CANVAS_WIDTH,
@@ -10,9 +11,7 @@ import {
   PLATFORM_WIDTH_MAX,
   PLATFORM_WIDTH_MIN,
   GROUND_HEIGHT,
-} from './constants';
-
-import WorldObject from './objects/world-object';
+} from '../constants';
 
 // Get a random width for platform generating.
 function randomWidth() {

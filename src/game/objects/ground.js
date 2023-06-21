@@ -1,5 +1,5 @@
 import WorldObject from './world-object';
-import { CANVAS_WIDTH, CANVAS_HEIGHT, GROUND_HEIGHT } from '../constants';
+import { CANVAS_WIDTH, CANVAS_HEIGHT, GROUND_HEIGHT } from '../../constants';
 
 class Ground extends WorldObject {
   constructor() {
