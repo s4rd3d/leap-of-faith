@@ -1,14 +1,24 @@
-class DeathMenu extends Menu {
+class PauseMenu extends Menu {
   constructor() {
     const buttons = [
       {
         properties: {
-          innerText: "Try Again",
+          innerText: "Resume",
           className: "menu-btn",
-          id: "try-again",
+          id: "resume",
         },
         handle: () => {
-          console.log("try again clicked");
+          console.log("resume clicked");
+        },
+      },
+      {
+        properties: {
+          innerText: "Settings",
+          className: "menu-btn",
+          id: "settings",
+        },
+        handle: () => {
+          console.log("settings clicked");
         },
       },
       {
@@ -23,8 +33,8 @@ class DeathMenu extends Menu {
       },
     ];
 
-    super(buttons, "death");
+    super(buttons, "main");
   }
 }
 
-export default DeathMenu;
+export default PauseMenu;
