@@ -1,12 +1,13 @@
-import collide from "./utils";
+import collide from './utils';
 
 class Render {
-  constructor(canvas, world, controller) {
+  constructor(canvas, world, controller, gameCallback) {
     this.canvas = canvas;
     this.world = world;
-    this.context = canvas.getContext("2d");
+    this.context = canvas.getContext('2d');
     this.controller = controller;
     this.paused = false;
+    this.gameCallback = gameCallback;
   }
 
   pause() {
@@ -15,7 +16,7 @@ class Render {
 
   resume() {
     this.paused = false;
-    window.requestAnimationFrame(this.doAnimate());
+    this.animate();
   }
 
   animate() {
@@ -53,6 +54,9 @@ class Render {
         element.handleCollision(player);
       }
     });
+
+    // If the player is under the canvas the game is over
+    if (player.position.y > this.canvas.height) this.gameCallback();
 
     // If the player is higher than the middle of the canvas, push objects down.
     if (player.position.y < this.canvas.height / 2 && player.velocity.y < 0) {

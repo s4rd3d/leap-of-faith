@@ -1,7 +1,7 @@
-import Game from "./game/game";
-import DeathMenu from "./menus/death-menu";
-import MainMenu from "./menus/main-menu";
-import PauseMenu from "./menus/pause-menu";
+import Game from './game/game';
+import DeathMenu from './menus/death-menu';
+import MainMenu from './menus/main-menu';
+import PauseMenu from './menus/pause-menu';
 
 // Possible game states
 const state = {
@@ -21,6 +21,8 @@ class Controller {
   }
 
   initialize() {
+    if (this.state === state.pause) this.hideMenu(this.pauseMenu);
+    else if (this.state === state.endScreen) this.hideMenu(this.deathMenu);
     this.state = state.mainMenu;
     this.showMenu(this.mainMenu);
     this.game.createGame();
@@ -39,49 +41,51 @@ class Controller {
 
   tryAgain() {
     this.state = state.game;
-    this.game.createGame();
-    this.game.startGame();
     this.hideMenu(this.deathMenu);
+    this.game.restartGame();
+    this.game.startGame();
   }
 
   pause() {
     this.state = state.pause;
     this.showMenu(this.pauseMenu);
-    this.game.pause();
+    this.game.pauseGame();
   }
 
   resume() {
-    this.state = game;
+    this.state = state.game;
     this.hideMenu(this.pauseMenu);
-    this.game.resume();
+    this.game.resumeGame();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   showMenu(menu) {
     menu.create();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   hideMenu(menu) {
     menu.remove();
   }
 
   handleCallback = (message) => {
     switch (message) {
-      case "startGame":
+      case 'startGame':
         this.starGame();
         break;
-      case "endGame":
+      case 'endGame':
         this.endGame();
         break;
-      case "backToMain":
+      case 'backToMain':
         this.initialize();
         break;
-      case "pause":
+      case 'pause':
         this.pause();
         break;
-      case "resume":
+      case 'resume':
         this.resume();
         break;
-      case "tryAgain":
+      case 'tryAgain':
         this.tryAgain();
         break;
       default:
