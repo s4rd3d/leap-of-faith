@@ -5,17 +5,17 @@ class DeathMenu extends Menu {
     const buttons = [
       {
         properties: {
-          innerText: 'Try Again',
-          className: 'menu-btn',
           id: 'try-again',
+          className: 'menu-btn',
+          innerText: 'Try Again',
         },
         handle: () => this.controllerCallback('tryAgain'),
       },
       {
         properties: {
-          innerText: 'Main Menu',
-          className: 'menu-btn',
           id: 'back-to-main',
+          className: 'menu-btn',
+          innerText: 'Main Menu',
         },
         handle: () => this.controllerCallback('backToMain'),
       },

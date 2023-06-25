@@ -5,39 +5,42 @@ class MainMenu extends Menu {
     const buttons = [
       {
         properties: {
-          innerText: 'New Game',
-          className: 'menu-btn',
           id: 'new-game',
+          className: 'menu-btn',
+          innerText: 'New Game',
         },
         handle: () => this.controllerCallback('startGame'),
       },
       {
         properties: {
-          innerText: 'Settings',
-          className: 'menu-btn',
           id: 'settings',
+          className: 'menu-btn',
+          innerText: 'Settings',
         },
         handle: () => {
+          // eslint-disable-next-line no-console
           console.log('settings clicked');
         },
       },
       {
         properties: {
-          innerText: 'High Scores',
-          className: 'menu-btn',
           id: 'high-scores',
+          className: 'menu-btn',
+          innerText: 'High Scores',
         },
         handle: () => {
+          // eslint-disable-next-line no-console
           console.log('high scores clicked');
         },
       },
       {
         properties: {
-          innerText: 'About',
-          className: 'menu-btn',
           id: 'about',
+          className: 'menu-btn',
+          innerText: 'About',
         },
         handle: () => {
+          // eslint-disable-next-line no-console
           console.log('about clicked');
         },
       },

@@ -1,3 +1,5 @@
+import autoBind from 'auto-bind';
+
 import World from './world';
 import Render from './render';
 
@@ -9,8 +11,7 @@ class Game {
     this.canvas = canvas;
 
     // Bind callbacks to instances
-    this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
-    this.handleInputKeyUp = this.handleInputKeyUp.bind(this);
+    autoBind(this);
 
     // User event handling
     this.inputController = {
@@ -26,10 +27,6 @@ class Game {
         pressed: false,
         handle: () => this.world.getPlayer().moveRight(),
       },
-      'Escape': {
-        pressed: false,
-        handle: () => this.controllerCallback('pause'),
-      },
     };
   }
 
@@ -39,10 +36,16 @@ class Game {
       this.canvas,
       this.world,
       this.inputController,
-      this.handleCallback,
+      this.controllerCallback,
     );
     this.world.generate();
     this.render.animate();
+  }
+
+  destroyGame() {
+    this.render = undefined;
+    this.world = undefined;
+    this.removeEventListeners();
   }
 
   startGame() {
@@ -50,24 +53,27 @@ class Game {
   }
 
   pauseGame() {
-    this.render.pause();
     this.removeEventListeners();
+    this.render.pause();
   }
 
   resumeGame() {
     this.render.resume();
-    // This is needed, because without setting this property
-    // the pause() function keeps triggering after one animation cycle
-    this.inputController.Escape.pressed = false;
     this.addEventListeners();
   }
 
   restartGame() {
     this.removeEventListeners();
-    this.createGame();
+    this.world.removeObjects();
+    this.world.generate();
+    this.addEventListeners();
+    this.render.restart();
   }
 
   handleInputKeyDown(event) {
+    if (event.key === 'Escape') {
+      this.controllerCallback('pause');
+    }
     if (this.inputController[event.key]) {
       this.inputController[event.key].pressed = true;
     }
@@ -90,11 +96,6 @@ class Game {
     window.removeEventListener('keydown', this.handleInputKeyDown);
     window.removeEventListener('keyup', this.handleInputKeyUp);
   }
-
-  handleCallback = () => {
-    this.render = undefined;
-    this.controllerCallback('endGame');
-  };
 }
 
 export default Game;

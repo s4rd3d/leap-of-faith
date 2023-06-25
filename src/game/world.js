@@ -81,6 +81,10 @@ class World {
     this.generatePlatforms();
   }
 
+  removeObjects() {
+    this.objects = [];
+  }
+
   generatePlatforms() {
     // The y coordinate where the first platform can be drawn to.
     // This equals the y coordinate of the highest platform + the platform

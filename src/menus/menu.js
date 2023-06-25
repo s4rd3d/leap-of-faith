@@ -1,11 +1,10 @@
+import autoBind from 'auto-bind';
+
 class Menu {
   constructor(buttons, name) {
     this.buttons = buttons;
     this.name = name;
-
-    // Bind callbacks to instances
-    this.navigateMenu = this.navigateMenu.bind(this);
-    this.changefocusHover = this.changefocusHover.bind(this);
+    autoBind(this);
   }
 
   // Change which button is in focus depending on keyboard
@@ -26,10 +25,10 @@ class Menu {
   }
 
   changefocusHover(event) {
-    const buttons = document.querySelectorAll('button');
-    const btnArray = Array.prototype.slice.call(buttons);
-    const button = btnArray.indexOf(event.target);
-    this.changeFocus(button);
+    const index = this.buttons.indexOf(
+      this.buttons.filter((button) => button.button === event.target)[0],
+    );
+    this.changeFocus(index);
   }
 
   // Keyboard navigation of main menu

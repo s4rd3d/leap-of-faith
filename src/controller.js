@@ -21,14 +21,23 @@ class Controller {
   }
 
   initialize() {
-    if (this.state === state.pause) this.hideMenu(this.pauseMenu);
-    else if (this.state === state.endScreen) this.hideMenu(this.deathMenu);
     this.state = state.mainMenu;
     this.showMenu(this.mainMenu);
     this.game.createGame();
   }
 
-  starGame() {
+  backToMain() {
+    if (this.state === state.pause) {
+      this.hideMenu(this.pauseMenu);
+    } else if (this.state === state.endScreen) {
+      this.hideMenu(this.deathMenu);
+    }
+    this.game.destroyGame();
+    this.game.createGame();
+    this.showMenu(this.mainMenu);
+  }
+
+  startGame() {
     this.state = state.game;
     this.hideMenu(this.mainMenu);
     this.game.startGame();
@@ -43,7 +52,6 @@ class Controller {
     this.state = state.game;
     this.hideMenu(this.deathMenu);
     this.game.restartGame();
-    this.game.startGame();
   }
 
   pause() {
@@ -71,13 +79,13 @@ class Controller {
   handleCallback = (message) => {
     switch (message) {
       case 'startGame':
-        this.starGame();
+        this.startGame();
         break;
       case 'endGame':
         this.endGame();
         break;
       case 'backToMain':
-        this.initialize();
+        this.backToMain();
         break;
       case 'pause':
         this.pause();
