@@ -1,3 +1,5 @@
+import autoBind from 'auto-bind';
+
 import Game from './game/game';
 import DeathMenu from './menus/death-menu';
 import MainMenu from './menus/main-menu';

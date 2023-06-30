@@ -1,3 +1,4 @@
+import autoBind from 'auto-bind';
 class WorldObject {
   constructor(position, width, height, color) {
     this.position = {

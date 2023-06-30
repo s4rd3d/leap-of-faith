@@ -74,7 +74,7 @@ class Game {
     if (event.key === 'Escape') {
       this.controllerCallback('pause');
     }
-    if (this.inputController[event.key]) {
+    else if (this.inputController[event.key]) {
       this.inputController[event.key].pressed = true;
     }
   }
@@ -93,8 +93,8 @@ class Game {
 
   // Remove user input for game
   removeEventListeners() {
-    window.removeEventListener('keydown', this.handleInputKeyDown);
     window.removeEventListener('keyup', this.handleInputKeyUp);
+    window.removeEventListener('keydown', this.handleInputKeyDown);
   }
 }
 
