@@ -1,3 +1,5 @@
+import autoBind from 'auto-bind';
+
 import Player from './objects/player';
 import Ground from './objects/ground';
 import WorldObject from './objects/world-object';
@@ -79,6 +81,10 @@ class World {
     this.player = player;
     this.addObject(ground);
     this.generatePlatforms();
+  }
+
+  removeObjects() {
+    this.objects = [];
   }
 
   generatePlatforms() {

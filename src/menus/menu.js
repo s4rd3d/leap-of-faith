@@ -1,116 +1,123 @@
+import autoBind from 'auto-bind';
+
 class Menu {
-  constructor(name, buttons) {
-    // Create menu div
-    this.createMenu();
-
-    // Name of the menu
-    this.name = name;
-
-    // Menu buttons
+  constructor(buttons, name) {
     this.buttons = buttons;
-    buttons.forEach((element) => {
-      // eslint-disable-next-line no-param-reassign
-      element.button = this.createButton(element.id, element.text);
-      // eslint-disable-next-line no-param-reassign
-      element.focused = false;
-    });
-
-    this.eventListeners = [];
-    this.addListeners();
-
-    // Default focus on the first button
-    this.buttons[0].focused = true;
-    this.changeFocus(0);
-  }
-
-  createMenu() {
-    // Container div for the buttons
-    this.menu = document.createElement('div');
-    this.menu.id = `${this.name}-menu`;
-    this.menu.classList.add('menu');
-
-    document.body.appendChild(this.menu);
-  }
-
-  createButton(id, text) {
-    // Create new button
-    const button = document.createElement('button');
-    button.id = id;
-    button.classList.add('menu-btn');
-    button.innerText = text;
-
-    // Append button to the menu
-    this.menu.appendChild(button);
-
-    return button;
-  }
-
-  // Keyboard navigation of main menu
-  navigateMenu(event) {
-    const focusedBtn = this.buttons.filter((button) => button.focused)[0];
-    const focusedBtnIdx = this.buttons.indexOf(focusedBtn);
-
-    let idx;
-    switch (event.key) {
-      case 'ArrowUp':
-        idx = focusedBtnIdx === 0
-          ? this.buttons.length - 1
-          : focusedBtnIdx - 1;
-        this.changeFocus(idx);
-        break;
-      case 'ArrowDown':
-        idx = focusedBtnIdx === this.buttons.length - 1
-          ? 0
-          : focusedBtnIdx + 1;
-        this.changeFocus(idx);
-        break;
-      default:
-        break;
-    }
+    this.name = name;
+    autoBind(this);
   }
 
   // Change which button is in focus depending on keyboard
   // or mouse selection
-  changeFocus(idx) {
-    this.buttons[idx].focused = true;
-    this.buttons[idx].button.focus();
-    this.buttons[idx].button.classList.add('focused');
+  changeFocus(index) {
+    const btnInFocus = this.buttons[index];
+
+    btnInFocus.focused = true;
+    btnInFocus.button.focus();
+    btnInFocus.button.classList.add('focused');
 
     for (let i = 0; i < this.buttons.length; i += 1) {
-      if (i !== idx) {
+      if (i !== index) {
         this.buttons[i].focused = false;
         this.buttons[i].button.classList.remove('focused');
       }
     }
   }
 
-  // Add event listeners to the menu buttons
-  addListeners() {
-    // Add click event listeners
+  changefocusHover(event) {
+    const index = this.buttons.indexOf(
+      this.buttons.filter((button) => button.button === event.target)[0],
+    );
+    this.changeFocus(index);
+  }
+
+  // Keyboard navigation of main menu
+  navigateMenu(event) {
+    const focusedButton = this.buttons.filter((button) => button.focused)[0];
+    const focusedButtonIdx = this.buttons.indexOf(focusedButton);
+    let index;
+
+    switch (event.key) {
+      case 'ArrowUp':
+        index = focusedButtonIdx === 0
+          ? this.buttons.length - 1
+          : focusedButtonIdx - 1;
+        this.changeFocus(index);
+        break;
+      case 'ArrowDown':
+        index = focusedButtonIdx === this.buttons.length - 1
+          ? 0
+          : focusedButtonIdx + 1;
+        this.changeFocus(index);
+        break;
+      default:
+        break;
+    }
+  }
+
+  create() {
+    this.createMenu();
+    this.createButtons();
+    this.addListeners();
+  }
+
+  remove() {
+    this.removeListeners();
+    this.removeMenu();
+  }
+
+  // Create container for the menu buttons
+  createMenu() {
+    this.menu = document.createElement('div');
+    this.menu.classList.add('menu');
+    this.menu.id = `${this.name}-menu`;
+    document.body.appendChild(this.menu);
+  }
+
+  removeMenu() {
+    this.menu.remove();
+  }
+
+  // Create button elements for the menu
+  createButtons() {
     for (let i = 0; i < this.buttons.length; i += 1) {
-      this.buttons[i].button.addEventListener('click', () => {
-        this.buttons[i].handle();
-      });
-      this.buttons[i].button.addEventListener('mouseover', () => {
-        this.changeFocus(i);
-      });
+      const element = this.buttons[i];
+      element.button = document.createElement('button');
+      if (element.properties) Object.assign(element.button, element.properties);
+      element.focused = false;
+      this.menu.appendChild(element.button);
     }
 
-    // Add event listener for keyboard navigation
-    window.addEventListener('keydown', (event) => {
-      this.navigateMenu(event);
+    // Default focus on the first button
+    this.changeFocus(0);
+  }
+
+  addListeners() {
+    this.buttons.forEach((element) => {
+      // Add click event listeners
+      element.button.addEventListener('click', element.handle);
+      // Add hover event listeners
+      element.button.addEventListener(
+        'mouseover',
+        this.changefocusHover,
+      );
     });
+    // Add event listener for keyboard navigation
+    window.addEventListener('keydown', this.navigateMenu);
   }
 
-  // Remove event listeners
   removeListeners() {
-    window.removeEventListener('keydown', this.navigateMenu);
-  }
+    this.buttons.forEach((element) => {
+      // Add click event listeners
+      element.button.removeEventListener('click', element.handle);
+      // Add hover event listeners
+      element.button.removeEventListener(
+        'mouseover',
+        this.changefocusHover,
+      );
+    });
 
-  // Remove the menu from the document
-  removeMenu() {
-    this.removeListeners();
-    this.menu.remove();
+    window.removeEventListener('keydown', this.navigateMenu);
   }
 }
 
